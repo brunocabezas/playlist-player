@@ -10,8 +10,12 @@
     "stylus-loader": "^3.0.1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "preact": "^8.2.7",
     "preact-redux": "^2.0.3",
-    "redux": "^3.7.2"
+    "querystring": "^0.2.0",
+    "redux": "^3.7.2",
+    "spotify-web-api-js": "^0.23.0",
+    "spotify-web-api-node": "^2.5.0"
   }
 }
