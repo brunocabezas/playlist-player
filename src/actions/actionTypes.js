@@ -1,4 +1,4 @@
 
 export const GET_PLAYLIST_SUCCESS = 'GET_PLAYLIST_SUCCESS';
 export const SET_TOKEN = 'SET_TOKEN';
-
+export const SPOTIFY_LOGIN = 'SPOTIFY_LOGIN';

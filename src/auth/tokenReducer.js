@@ -1,4 +1,4 @@
-import { initialState } from '../store';
+import initialState from '../store/initialState';
 import {SET_TOKEN} from "../actions/actionTypes";
 
 export default function token(state = initialState.token, action) {
@@ -6,6 +6,6 @@ export default function token(state = initialState.token, action) {
     case SET_TOKEN:
       return action.token;
     default:
-      return; state;
+      return state;
   }
 };
