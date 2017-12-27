@@ -1,20 +1,44 @@
 import { h, Component } from 'preact';
 import {spotify} from '../api';
 import {bindActionCreators} from 'redux';
+import getParams from '../helpers/getUserAndPlaylistIdFromUrl';
+
 import {connect} from 'preact-redux';
-import {login} from '../actions/spotify';
+import {login,loadPlaylist} from '../actions/spotify';
 import PlaylistLinkInput from './PlaylistLinkInput';
+import urlRegex from 'url-regex';
+
 
 class App extends Component {
-  componentWillMount(){
+  state = {
+    text : ""
+  };
+  componentWillMount() {
     console.log('componentWillUnmount',this.props);
     this.props.login();
-  }
-  render(props,state){
+  };
+
+  handleInputchange = e => {
+    const text = e.target.value;
+    this.setState({text});
+
+    const validUrl = urlRegex().test(text);
+
+    if (!validUrl) return;
+
+    const params = getParams(text);
+    this.props.loadPlaylist(params);
+  };
+
+  render(props,{text}){
     return (
       <div>
         <h1>ENTER A SPOTIFY PLAYLIST LINK</h1>
-        <PlaylistLinkInput />
+        <PlaylistLinkInput
+          value = {text}
+          name = "text"
+          onChange ={this.handleInputchange}
+        />
       </div>
     );
   }
@@ -23,7 +47,8 @@ class App extends Component {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = (dispatch) => ({
-  login: () => dispatch({type: 'SPOTIFY_LOGIN'})
+  login: () => dispatch(login()),
+  loadPlaylist: data => dispatch(loadPlaylist(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

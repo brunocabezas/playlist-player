@@ -1,4 +1,4 @@
-import {SET_TOKEN,SPOTIFY_LOGIN} from "./actionTypes";
+import {SET_TOKEN,GET_PLAYLIST,GET_PLAYLIST_SUCCESS,SPOTIFY_LOGIN} from "./actionTypes";
 import querystring from 'querystring';
 import { Base64 } from 'js-base64';
 import {ajax} from 'rxjs/observable/dom/ajax';
@@ -6,6 +6,12 @@ import {ajax} from 'rxjs/observable/dom/ajax';
 export const setToken = token =>
   ({type : SET_TOKEN, token});
 
+export const loadPlaylistSuccess = playlist =>
+  ({type : GET_PLAYLIST_SUCCESS, playlist});
+
+
+export const loadPlaylist = data =>
+  ({type : GET_PLAYLIST, data});
 
 export const login = () =>
   ({ type: SPOTIFY_LOGIN });
@@ -30,4 +36,26 @@ export const loginEpic = action$ =>
           },
       }))
         .map(res => setToken(res.response.access_token))
+    );
+
+// epic
+export const loadPlaylistEpic = (action$, store) =>
+  action$.ofType(GET_PLAYLIST)
+    .mergeMap(action =>{
+      const {user,playlistId} = action.data,
+        token = store.getState().token;
+
+      return  ajax(({
+        url: `https://api.spotify.com/v1/users/${user}/playlists/${playlistId}`,
+        method: 'get',
+        crossDomain: true,
+        body,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization' : "Bearer "+token
+        },
+      }))
+        .map(res => loadPlaylistSuccess(res.response))
+    }
+
     );

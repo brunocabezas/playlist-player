@@ -1,22 +1,27 @@
 import {h,Component} from 'preact';
+import PropTypes from 'prop-types';
 
-class PlaylistLinkInput extends Component {
+export default class PlaylistLinkInput extends Component {
+  static propTypes = {
+    value : PropTypes.string.isRequired,
+    onChange : PropTypes.func.isRequired,
+    name : PropTypes.string
+  };
 
+  static defaultProps = {
+    name : "text"
+  };
 
-  render(){
-    const {name,value,onChange} = this.props;
-
+  render({name,value,onChange}){
     return (
       <div>
         <input
           type = "text"
           name={name}
           value = {value}
-          onInput={()=>{}}
+          onInput={onChange}
         />
       </div >
     );
   }
-}
-
-export default PlaylistLinkInput;
+};
