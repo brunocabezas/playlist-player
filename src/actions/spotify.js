@@ -1,6 +1,7 @@
-import {SET_TOKEN,GET_PLAYLIST,GET_PLAYLIST_SUCCESS,SPOTIFY_LOGIN} from "./actionTypes";
-import querystring from 'querystring';
+import {SET_TOKEN,GET_PLAYLIST_ERROR,GET_PLAYLIST,SPOTIFY_LOGIN_ERROR,GET_PLAYLIST_SUCCESS,SPOTIFY_LOGIN} from "./actionTypes";
+import queryString from 'querystring';
 import { Base64 } from 'js-base64';
+import {Observable} from 'rxjs'
 import {ajax} from 'rxjs/observable/dom/ajax';
 
 export const setToken = token =>
@@ -17,7 +18,7 @@ export const login = () =>
   ({ type: SPOTIFY_LOGIN });
 
 
-const body = querystring.stringify({ grant_type: 'client_credentials' }),
+const body = queryString.stringify({ grant_type: 'client_credentials' }),
   base64client = Base64.encode(process.env.CLIENT+":"+process.env.CLIENT_ID);
 
 // epic
@@ -35,7 +36,12 @@ export const loginEpic = action$ =>
             'Content-Type': 'application/x-www-form-urlencoded'
           },
       }))
-        .map(res => setToken(res.response.access_token))
+      .map(res => setToken(res.response.access_token))
+      .catch(error => Observable.of({
+        type: SPOTIFY_LOGIN_ERROR,
+        payload: error.xhr.response,
+        error: true
+      }))
     );
 
 // epic
@@ -56,6 +62,11 @@ export const loadPlaylistEpic = (action$, store) =>
         },
       }))
         .map(res => loadPlaylistSuccess(res.response))
+        .catch(error => Observable.of({
+          type: GET_PLAYLIST_ERROR,
+          payload: error.xhr.response,
+          error: true
+        }))
     }
 
     );

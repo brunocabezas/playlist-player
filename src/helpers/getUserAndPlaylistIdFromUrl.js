@@ -4,5 +4,6 @@ export default url => {
     hasPlaylist = url.indexOf('playlist/')>=0 ? url.indexOf('playlist/') : false,
     playlistId = hasPlaylist && url.slice(hasPlaylist+9).split('/')[0];
 
-  return {user, playlistId}
+
+  return hasUser && hasPlaylist ? {user, playlistId} : null;
 };

@@ -1,4 +1,12 @@
+import {playlist} from "../actions/mock";
+
 export default {
-  playlist : [],
+  // playlist : {
+  //   name : null,
+  //   tracks : {
+  //     items : []
+  //   }
+  // },
+  playlist,
   token : ""
 }

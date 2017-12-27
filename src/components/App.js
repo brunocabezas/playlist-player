@@ -1,12 +1,13 @@
 import { h, Component } from 'preact';
-import {spotify} from '../api';
-import {bindActionCreators} from 'redux';
+import Playlist from './Playlist'
 import getParams from '../helpers/getUserAndPlaylistIdFromUrl';
 
 import {connect} from 'preact-redux';
 import {login,loadPlaylist} from '../actions/spotify';
+import {loadPlaylistSongs} from '../actions/youtube';
 import PlaylistLinkInput from './PlaylistLinkInput';
 import urlRegex from 'url-regex';
+import playlist from "../store/playlistReducer";
 
 
 class App extends Component {
@@ -27,10 +28,19 @@ class App extends Component {
     if (!validUrl) return;
 
     const params = getParams(text);
-    this.props.loadPlaylist(params);
+    if(params){
+      this.props.loadPlaylist(params)
+        .then(res=>console.log(res))
+        .catch(res=>console.log(res));
+    }
   };
 
-  render(props,{text}){
+  handlePlay = e =>{
+    // if (this.props.playlist.name){
+      this.props.loadPlaylistSongs(this.props.playlist.tracks.items);
+    // }
+  }
+  render({playlist},{text}){
     return (
       <div>
         <h1>ENTER A SPOTIFY PLAYLIST LINK</h1>
@@ -39,16 +49,22 @@ class App extends Component {
           name = "text"
           onChange ={this.handleInputchange}
         />
+        <Playlist data = {playlist}
+        />
+        <button onClick={this.handlePlay}>get</button>
       </div>
     );
   }
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  playlist : state.playlist
+});
 
 const mapDispatchToProps = (dispatch) => ({
   login: () => dispatch(login()),
-  loadPlaylist: data => dispatch(loadPlaylist(data))
+  loadPlaylist: data => dispatch(loadPlaylist(data)),
+  loadPlaylistSongs: data => dispatch(loadPlaylistSongs(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
