@@ -3,7 +3,6 @@ import Playlist from './player/Playlist';
 import getParams from '../helpers/getUserAndPlaylistIdFromUrl';
 import PropTypes from 'prop-types';
 import songSelector from '../selectors/song';
-import AudioPlayer from './AudioPlayer';
 import Player from './player/Player';
 
 import {connect} from 'preact-redux';
