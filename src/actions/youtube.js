@@ -38,7 +38,7 @@ const parseQueryParams = ({name,artist})=>
 const myPromise = val =>{
   const values = parseQueryParams(getArtistAndNameFromTrack(val)),
     spotifyId = val.track.id,
-    spotifyTrackName = val.track.name;
+    spotifyTrackName = val.track.artists[0].name+" "+val.track.name;
 
   return ajax({
       url: `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=relevance&q=${values}&key=${key}`,

@@ -1,4 +1,5 @@
 import {createSelector} from 'reselect';
+import getCorrectVideo from '../helpers/getCorrectVideo';
 
 const getSongs = state =>
   state.playlist.songs;
@@ -6,16 +7,15 @@ const getSongs = state =>
 export default createSelector(
   getSongs,
   songs=>songs.map(song=>{
-    console.log(song);
-    const {spotifyId,items} = song,
-      firstResult = items.length>=0 && items[0];
+    const {spotifyId,spotifyTrackName,items} = song,
+      video = getCorrectVideo(spotifyTrackName,items);
 
     return Object.assign(
-      { youtubeId : firstResult.id.videoId,
-        src : "http://www.youtube.com/embed/"+firstResult.id.videoId,
-        label : firstResult.snippet.title,
-        published : firstResult.snippet.publishedAt,
-        etag : firstResult.etag
+      { youtubeId : video.id.videoId,
+        src : "http://www.youtube.com/embed/"+video.id.videoId,
+        label : video.snippet.title,
+        published : video.snippet.publishedAt,
+        etag : video.etag
       },
       {spotifyId}
     );
