@@ -4,9 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/src/store/store.js" line="6" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b2ace53-498b-40ff-be59-8ae770e6bc2c" name="Default" comment="">
+    <list default="true" id="0b2ace53-498b-40ff-be59-8ae770e6bc2c" name="Default" comment="added unversioned files">
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" afterPath="$PROJECT_DIR$/src/components/App.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,16 +23,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+            <state relative-caret-position="234">
+              <caret line="18" column="44" lean-forward="true" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
               <folding>
+                <element signature="e#0#38#0" expanded="true" />
                 <marker date="1514670760000" expanded="true" signature="2189:2723" ph="..." />
                 <marker date="1514670760000" expanded="true" signature="2264:2368" ph="..." />
                 <marker date="1514670760000" expanded="true" signature="2695:2696" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="693">
+              <caret line="59" column="7" lean-forward="false" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -163,7 +174,6 @@
         <option value="$PROJECT_DIR$/src/root.js" />
         <option value="$PROJECT_DIR$/src/store/store.js" />
         <option value="$PROJECT_DIR$/src/auth/tokenReducer.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/components/PlaylistLinkInput.js" />
         <option value="$PROJECT_DIR$/src/helpers/validators.js" />
         <option value="$PROJECT_DIR$/src/helpers/getUserAndPlaylistIdFromUrl.js" />
@@ -205,6 +215,7 @@
         <option value="$PROJECT_DIR$/src/assets/main.styl" />
         <option value="$PROJECT_DIR$/src/components/player/Player.js" />
         <option value="$PROJECT_DIR$/src/components/App.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -466,7 +477,7 @@
       <workItem from="1514310356198" duration="258000" />
       <workItem from="1514310631233" duration="54339000" />
       <workItem from="1514573725000" duration="1733000" />
-      <workItem from="1514651222131" duration="12933000" />
+      <workItem from="1514651222131" duration="13035000" />
     </task>
     <task id="LOCAL-00001" summary="added babel preact loader, added new auth token reducer, added spotify web client, new action types file, added new spotify actions">
       <created>1514328788798</created>
@@ -503,16 +514,23 @@
       <option name="project" value="LOCAL" />
       <updated>1514670718455</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added unversioned files">
+      <created>1514670784791</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1514670784791</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73488000" />
+    <option name="totallyTimeSpent" value="73590000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="23" width="1920" height="1053" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23908414" sideWeight="0.44211823" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23908414" sideWeight="0.44211823" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="SvgViewer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -521,7 +539,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905984" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23908414" sideWeight="0.5578818" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23908414" sideWeight="0.5578818" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23908414" sideWeight="0.55741125" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -587,12 +605,14 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <MESSAGE value="added babel preact loader, added new auth token reducer, added spotify web client, new action types file, added new spotify actions" />
     <MESSAGE value="added initialState file, mew playlist reducer, new loginEpic, added new root module with epics and reducer, adde redux observable deps with js.base64 and redux-devtools-extension" />
     <MESSAGE value="added new transform class plugin to babel, fetching playlist when user entered a correct uri, added prop-types and url-regex to package.json, added new loadPlaylistEpic" />
     <MESSAGE value="adde more action types on save playlists, catching errors on all epics, added youtube actions with more epics, addew new mock file, added cors to wepback dev server config" />
     <MESSAGE value="added reselect,react,react-player deps, added new songs reducer, configured preact-compat, added new media player stylesheets, added Player, added songs selector" />
-    <option name="LAST_COMMIT_MESSAGE" value="added reselect,react,react-player deps, added new songs reducer, configured preact-compat, added new media player stylesheets, added Player, added songs selector" />
+    <MESSAGE value="added unversioned files" />
+    <option name="LAST_COMMIT_MESSAGE" value="added unversioned files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -634,13 +654,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/actions.js" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/PlaylistLinkInput.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -990,13 +1003,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+        <state relative-caret-position="234">
+          <caret line="18" column="44" lean-forward="true" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
           <folding>
+            <element signature="e#0#38#0" expanded="true" />
             <marker date="1514670760000" expanded="true" signature="2189:2723" ph="..." />
             <marker date="1514670760000" expanded="true" signature="2264:2368" ph="..." />
             <marker date="1514670760000" expanded="true" signature="2695:2696" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="693">
+          <caret line="59" column="7" lean-forward="false" selection-start-line="59" selection-start-column="7" selection-end-line="59" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
