@@ -7,6 +7,12 @@ export default {
   //     items : []
   //   }
   // },
-  playlist,
-  token : ""
+  playlist : {
+    /* spotify data */
+    data: playlist,
+    /* youtube best matches for songs */
+    songs : []
+  },
+  token : "",
+
 }

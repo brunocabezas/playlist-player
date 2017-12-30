@@ -10,7 +10,6 @@ export const setToken = token =>
 export const loadPlaylistSuccess = playlist =>
   ({type : GET_PLAYLIST_SUCCESS, playlist});
 
-
 export const loadPlaylist = data =>
   ({type : GET_PLAYLIST, data});
 

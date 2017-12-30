@@ -2,6 +2,11 @@ module.exports = {
   port: 3000,
   extendWebpack(config) {
     // Disable progress bar while building
+    config.resolve.alias
+      .set('react', 'preact-compat')
+      .set('react-dom', 'preact-compat')
+      .set('create-react-class', 'preact-compat/lib/create-react-class');
+
     config.devServer.node = {fs:'empty'}
   },
   devServer : {

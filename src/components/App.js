@@ -1,6 +1,10 @@
 import { h, Component } from 'preact';
-import Playlist from './Playlist'
+import Playlist from './player/Playlist';
 import getParams from '../helpers/getUserAndPlaylistIdFromUrl';
+import PropTypes from 'prop-types';
+import songSelector from '../selectors/song';
+import AudioPlayer from './AudioPlayer';
+import Player from './player/Player';
 
 import {connect} from 'preact-redux';
 import {login,loadPlaylist} from '../actions/spotify';
@@ -9,11 +13,29 @@ import PlaylistLinkInput from './PlaylistLinkInput';
 import urlRegex from 'url-regex';
 import playlist from "../store/playlistReducer";
 
+require('preact/devtools');
 
-class App extends Component {
-  state = {
-    text : ""
+class App extends Component{
+  static propTypes = {
+    /* playlist data from state (spotify) */
+    playlistData : PropTypes.object,
+    songs : PropTypes.arrayOf(PropTypes.shape({
+      title : PropTypes.string.isRequired,
+      published : PropTypes.string.isRequired,
+      etag : PropTypes.string.isRequired,
+      youtubeId : PropTypes.string.isRequired,
+      spotifyId : PropTypes.string.isRequired
+    })).isRequired,
+    login : PropTypes.func.isRequired,
+    loadPlaylist : PropTypes.func.isRequired,
+    loadPlaylistSongs : PropTypes.func.isRequired
   };
+
+  state = {
+    text : "",
+    currentTrack: {},
+  };
+
   componentWillMount() {
     console.log('componentWillUnmount',this.props);
     this.props.login();
@@ -30,17 +52,26 @@ class App extends Component {
     const params = getParams(text);
     if(params){
       this.props.loadPlaylist(params)
-        .then(res=>console.log(res))
-        .catch(res=>console.log(res));
     }
   };
 
+  _handleTrackClick = (track) => {
+    this.setState({ currentTrack: track })
+  };
+
+  _navigatePlaylist = (direction) => {
+    const newIndex = mod(this.props.playlisData.track.items,playlist.indexOf(this.state.currentTrack) + direction, this.props.playlisData.track.items,playlist.length);
+    this.setState({ currentTrack: playlist[newIndex] })
+  };
+
   handlePlay = e =>{
-    // if (this.props.playlist.name){
-      this.props.loadPlaylistSongs(this.props.playlist.tracks.items);
-    // }
-  }
-  render({playlist},{text}){
+    const {loadPlaylistSongs,playlistData } = this.props;
+    loadPlaylistSongs(playlistData.tracks.items);
+  };
+
+  render({playlistData,songs},{text,currentTrack,repeatTrack,autoPlay}){
+
+    console.log(currentTrack)
     return (
       <div>
         <h1>ENTER A SPOTIFY PLAYLIST LINK</h1>
@@ -49,16 +80,25 @@ class App extends Component {
           name = "text"
           onChange ={this.handleInputchange}
         />
-        <Playlist data = {playlist}
+        {playlistData && <h5>playlist: {playlistData.name}</h5>}
+        <Player
+          url = {currentTrack.src}
         />
+        <br/>
         <button onClick={this.handlePlay}>get</button>
+        <Playlist tracks = {songs}
+          currentTrack={currentTrack}
+          onTrackClick={this._handleTrackClick}
+        />
+        <hr/>
       </div>
     );
   }
 };
 
 const mapStateToProps = state => ({
-  playlist : state.playlist
+  playlistData : state.playlist.data,
+  songs : songSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

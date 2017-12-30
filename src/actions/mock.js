@@ -36,9 +36,9 @@ export const playlist = {
   },
   "public" : true,
     "snapshot_id" : "00r2/4NOIGuecbQ5YjC3XCejkBTzyTQNqcewk2pTjYvVI8Fflv6YPeF/LFDO3DUH",
-    "tracks" : {
+  "tracks" : {
     "href" : "https://api.spotify.com/v1/users/subhaze-cl/playlists/2DFxu5p9MQSnq3r2lWnxwi/tracks?offset=0&limit=100",
-      "items" : [ {
+    "items" : [ {
       "added_at" : "2017-01-23T12:50:32Z",
       "added_by" : {
         "external_urls" : {

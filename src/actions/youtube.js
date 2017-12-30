@@ -1,6 +1,6 @@
 import {
   SAVE_PLAYLIST_ERROR, SAVE_PLAYLIST_SUCCESS, SAVE_PLAYLIST, GET_PLAYLIST_SONGS, SPOTIFY_LOGIN,
-  SPOTIFY_LOGIN_ERROR
+  SPOTIFY_LOGIN_ERROR, GET_PLAYLIST_SONGS_SUCCESS
 } from "./actionTypes";
 import queryString from 'querystring';
 import { Base64 } from 'js-base64';
@@ -22,6 +22,9 @@ const key = process.env.YTKEY;
 export const loadPlaylistSongs = songs =>
   ({type : GET_PLAYLIST_SONGS, songs});
 
+export const loadPlaylistSongsSuccess = songs =>
+  ({type : GET_PLAYLIST_SONGS_SUCCESS, songs});
+
 export const savePlaylist = videos =>
   ({type : SAVE_PLAYLIST, videos});
 
@@ -33,16 +36,17 @@ const parseQueryParams = ({name,artist})=>
 
 
 const myPromise = val =>{
-  console.log('val: ',val );
   const values = parseQueryParams(getArtistAndNameFromTrack(val)),
-    trackId = val.track.id;
+    spotifyId = val.track.id,
+    spotifyTrackName = val.track.name;
+
   return ajax({
       url: `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=relevance&q=${values}&key=${key}`,
       method: 'get',
       crossDomain: true,
     })
     .map(res => {
-      return Object.assign({trackId},res.response);
+      return Object.assign({spotifyId,spotifyTrackName},res.response);
     })
 };
 
@@ -50,16 +54,14 @@ const myPromise = val =>{
 export const loadPlaylistSongsEpic = (action$, store) =>
   action$.ofType(GET_PLAYLIST_SONGS)
     .mergeMap(action =>{
-      const source = Observable.of(action.songs);
-
-      return source
-        .mergeMap(q => Observable.forkJoin(...q.map(myPromise)))
+      return Observable.of(action.songs)
+        .switchMap(songs => Observable.forkJoin(...songs.map(myPromise)))
         .map(res => {
           const videoIds = res
             .map(r=>r.items.find(item=>item.id.videoId))
             .map(r=>r.id.videoId);
-
-          return savePlaylist(videoIds);
+          return loadPlaylistSongsSuccess(res);
+           // savePlaylist(videoIds);
         });
     });
 
@@ -78,7 +80,7 @@ export const savePlaylistEpic = (action$, store) =>
             status : "public"
           });
 
-        console.log(body)
+        //console.log(body)
         return  ajax(({
           url: `https://www.googleapis.com/youtube/v3/playlists?part=id&access_token=${key}`,
           method: 'post',
