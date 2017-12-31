@@ -3,20 +3,11 @@ import {
   SPOTIFY_LOGIN_ERROR, GET_PLAYLIST_SONGS_SUCCESS
 } from "./actionTypes";
 import queryString from 'querystring';
-import { Base64 } from 'js-base64';
 import {Observable} from 'rxjs';
 import  getArtistAndNameFromTrack from '../helpers/getArtistAndNameFromTrack';
-// import Youtube from 'youtube-api';
 import {ajax} from 'rxjs/observable/dom/ajax';
+import {updateLoading} from './loginActions';
 
-/*Youtube.authenticate({
-  type: "oauth"
-  , token: "AIzaSyC13DDiryPZsAYLmcXvuWtr6c6K6NSpt0o"
-});*/
-/*
-const { YTSearcher } = require('ytsearcher');
-const searcher = new YTSearcher("AIzaSyC13DDiryPZsAYLmcXvuWtr6c6K6NSpt0o");
-*/
 const key = process.env.YTKEY;
 
 export const loadPlaylistSongs = songs =>
@@ -53,8 +44,11 @@ const myPromise = val =>{
 // epic
 export const loadPlaylistSongsEpic = (action$, store) =>
   action$.ofType(GET_PLAYLIST_SONGS)
-    .mergeMap(action =>{
-      return Observable.of(action.songs)
+    .mergeMap(action =>
+
+      Observable.concat(
+        Observable.of(updateLoading(true)),
+        Observable.of(action.songs)
         .switchMap(songs => Observable.forkJoin(...songs.map(myPromise)))
         .map(res => {
           const videoIds = res
@@ -62,8 +56,9 @@ export const loadPlaylistSongsEpic = (action$, store) =>
             .map(r=>r.id.videoId);
           return loadPlaylistSongsSuccess(res);
            // savePlaylist(videoIds);
-        });
-    });
+        }),
+        Observable.of(updateLoading(false))
+      ));
 
 
 

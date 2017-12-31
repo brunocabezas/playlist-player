@@ -1,14 +1,15 @@
 import {combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
 import playlist from './playlistReducer';
-import token from '../auth/tokenReducer';
+import token from '../reducers/tokenReducer';
+import loading from '../reducers/loadingReducer';
 import {savePlaylistEpic,loadPlaylistSongsEpic} from "../actions/youtube";
 import { loginEpic,loadPlaylistEpic } from "../actions/spotify";
 
-
 export const rootReducer = combineReducers({
   playlist,
-  token
+  token,
+  loading
 });
 
 export const rootEpic = combineEpics(

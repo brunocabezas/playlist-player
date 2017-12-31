@@ -29,6 +29,7 @@ class App extends Component{
       youtubeId : PropTypes.string.isRequired,
       spotifyId : PropTypes.string.isRequired
     })).isRequired,
+    loading : PropTypes.bool.isRequired,
     login : PropTypes.func.isRequired,
     loadPlaylist : PropTypes.func.isRequired,
     loadPlaylistSongs : PropTypes.func.isRequired
@@ -73,12 +74,12 @@ class App extends Component{
     loadPlaylistSongs(playlistData.tracks.items);
   };
 
-  render({playlistData,songs},{text,currentTrack,repeatTrack,autoPlay}){
+  render({playlistData,songs,loading},{text,currentTrack,repeatTrack,autoPlay}){
 
     // console.log(currentTrack)
     return (
       <div>
-        <h1>ENTER A SPOTIFY PLAYLIST LINK</h1>
+        <h1>ENTER A SPOTIFY PLAYLIST LINK {loading && "loading"}</h1>
         <PlaylistLinkInput
           value = {text}
           name = "text"
@@ -102,7 +103,8 @@ class App extends Component{
 
 const mapStateToProps = state => ({
   playlistData : state.playlist.data,
-  songs : songSelector(state)
+  songs : songSelector(state),
+  loading : state.loading
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,5 +1,6 @@
 import {h, Component} from 'preact';
 import PropTypes from 'prop-types';
+import './_playlist.styl';
 
 export default class Playlist extends Component {
   static propTypes = {
@@ -26,16 +27,17 @@ export default class Playlist extends Component {
   render({ tracks, currentTrack }){
 
     return (
-      <aside className="media-playlist">
-        <header className="media-playlist-header">
-          <h3 className="media-playlist-title">Playlist</h3>
+      <aside className="playlist">
+        <header className="playlist__header">
+          <h3 className="playlist__title">Playlist</h3>
         </header>
-        <ul className="media-playlist-tracks">
+        <ul className="playlist__tracks">
           {tracks.map(track =>(
             <li key={track.label}
               id = {track.spotifyId}
-              className={`media-playlist-track ${track === currentTrack ? 'is-active' : ''}`}
+              className={`playlist__track ${track === currentTrack ? 'playlist__track-active' : ''}`}
               onClick={this._handleTrackClick}
+                title={track.spotifyTrackName}
             >
               {track.label}
             </li>

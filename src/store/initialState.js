@@ -14,5 +14,5 @@ export default {
     songs : []
   },
   token : "",
-
+  loading : false
 };

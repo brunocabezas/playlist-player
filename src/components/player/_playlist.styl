@@ -1,0 +1,32 @@
+
+.playlist {
+  background-color: #282f31;
+  color: #fff
+
+  .playlist__header {
+    padding: 2px;
+    background-color: #373d3f;
+  }
+  .playlist__title {
+    font-size: 14px;
+    text-align: center;
+  }
+  .playlist__tracks {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border: 1px solid #373d3f;
+
+    .playlist__track {
+      padding: 12px;
+      cursor: pointer;
+
+      &-active,&:hover{
+        color: #8bb955;
+      }
+    }
+    .playlist__track + .playlist__track {
+      border-top: 1px solid #373d3f;
+    }
+  }
+}

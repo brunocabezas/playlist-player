@@ -3,6 +3,7 @@ import queryString from 'querystring';
 import { Base64 } from 'js-base64';
 import {Observable} from 'rxjs';
 import {ajax} from 'rxjs/observable/dom/ajax';
+import { updateLoading } from "./loginActions";
 
 export const setToken = token =>
   ({type : SET_TOKEN, token});
@@ -50,22 +51,25 @@ export const loadPlaylistEpic = (action$, store) =>
       const {user,playlistId} = action.data,
         token = store.getState().token;
 
-      return  ajax(({
-        url: `https://api.spotify.com/v1/users/${user}/playlists/${playlistId}`,
-        method: 'get',
-        crossDomain: true,
-        body,
-        headers: {
-          'Accept': 'application/json',
-          'Authorization' : "Bearer "+token
-        },
-      }))
+
+      return Observable.concat(
+        Observable.of(updateLoading(true)),
+        ajax(({
+          url: `https://api.spotify.com/v1/users/${user}/playlists/${playlistId}`,
+          method: 'get',
+          crossDomain: true,
+          body,
+          headers: {
+            'Accept': 'application/json',
+            'Authorization' : "Bearer "+token
+          },
+        }))
         .map(res => loadPlaylistSuccess(res.response))
         .catch(error => Observable.of({
           type: GET_PLAYLIST_ERROR,
           payload: error.xhr.response,
           error: true
-        }));
-    }
-
-    );
+        })),
+        Observable.of(updateLoading(false))
+      );
+    });
