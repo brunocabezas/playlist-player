@@ -8,4 +8,4 @@ export default function token(state = initialState.token, action) {
     default:
       return state;
   }
-};
+}

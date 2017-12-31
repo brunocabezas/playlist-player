@@ -1,11 +1,8 @@
-import React, { Component } from 'react'
+import {h, Component} from 'preact';
+import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
-import {h} from 'preact';
-
-import './_player.css'
-import './Range.css'
-
-import ReactPlayer from 'react-player'
+import './_player.css';
+import './Range.css';
 
 export default class Player extends Component {
   static propTypes = {
@@ -17,7 +14,7 @@ export default class Player extends Component {
   };
 
   state = {
-    url:  this.props.null,
+    url:  this.props.url || null,
     playing: true,
     volume: 0.8,
     muted: false,
@@ -28,17 +25,17 @@ export default class Player extends Component {
     loop: false
   };
 
+  componentWillReceiveProps = (nextProps)=>{
+    if (this.props.url!==nextProps.url)
+      this.load(nextProps.url);
+  };
+
   load = url => {
     this.setState({
       url,
       played: 0,
       loaded: 0
-    })
-  };
-
-  componentWillReceiveProps = (nextProps)=>{
-    if (this.props.url!==nextProps.url)
-      this.load(nextProps.url)
+    });
   };
 
   playPause = () => {
@@ -75,47 +72,54 @@ export default class Player extends Component {
   };
 
   onSeekChange = e => {
-    this.setState({ played: parseFloat(e.target.value) })
-  }
+    this.setState({ played: parseFloat(e.target.value) });
+  };
+
   onSeekMouseUp = e => {
-    this.setState({ seeking: false })
-    this.player.seekTo(parseFloat(e.target.value))
-  }
+    this.setState({ seeking: false });
+    this.player.seekTo(parseFloat(e.target.value));
+  };
+
   onProgress = state => {
     // console.log('onProgress', state)
     // We only want to update time slider if we are not currently seeking
     if (!this.state.seeking) {
-      this.setState(state)
+      this.setState(state);
     }
-  }
+  };
+
   onEnded = () => {
     // console.log('onEnded')
-    this.setState({ playing: this.state.loop })
-  }
+    this.setState({ playing: this.state.loop });
+  };
+
   onDuration = (duration) => {
     // console.log('onDuration', duration)
-    this.setState({ duration })
-  }
-  onClickFullscreen = () => {
-    screenfull.request(findDOMNode(this.player))
-  }
+    this.setState({ duration });
+  };
 
   ref = player => {
-    this.player = player
-  }
+    this.player = player;
+  };
+
+  onError = e  =>
+    // eslint-disable-next-line
+    console.log("onError", e);
+
+
   render () {
     const { url, playing, volume, muted, loop, played, loaded, duration, playbackRate } = this.state;
 
     return (
-      <div className='app'>
-        <section className='section'>
+      <div className="app">
+        <section className="section">
           <h1>ReactPlayer Demo</h1>
-          <div className='player-wrapper'>
+          <div className="player-wrapper">
             <ReactPlayer
               ref={this.ref}
-              className='react-player'
-              width='100%'
-              height='100%'
+              className="react-player"
+              width="100%"
+              height="100%"
               url={url}
               playing={playing}
               loop={loop}
@@ -125,7 +129,7 @@ export default class Player extends Component {
               onPlay={this.onPlay}
               onPause={this.onPause}
               onEnded={this.onEnded}
-              onError={e => console.log('onError', e)}
+              onError={this.onError}
               onProgress={this.onProgress}
               onDuration={this.onDuration}
             />
@@ -135,15 +139,14 @@ export default class Player extends Component {
               <th>Controls</th>
               <td>
                 <button onClick={this.stop}>Stop</button>
-                <button onClick={this.playPause}>{playing ? 'Pause' : 'Play'}</button>
-                <button onClick={this.onClickFullscreen}>Fullscreen</button>
+                <button onClick={this.playPause}>{playing ? "Pause" : "Play"}</button>
               </td>
             </tr>
             <tr>
               <th>Seek</th>
               <td>
                 <input
-                  type='range' min={0} max={1} step='any'
+                  type="range" min={0} max={1} step="any"
                   value={played}
                   onMouseDown={this.onSeekMouseDown}
                   onChange={this.onSeekChange}
@@ -154,23 +157,23 @@ export default class Player extends Component {
             <tr>
               <th>Volume</th>
               <td>
-                <input type='range' min={0} max={1} step='any' value={volume} onChange={this.setVolume} />
+                <input type="range" min={0} max={1} step="any" value={volume} onChange={this.setVolume} />
               </td>
             </tr>
             <tr>
               <th>
-                <label htmlFor='muted'>Muted</label>
+                <label htmlFor="muted">Muted</label>
               </th>
               <td>
-                <input id='muted' type='checkbox' checked={muted} onChange={this.toggleMuted} />
+                <input id="muted" type="checkbox" checked={muted} onChange={this.toggleMuted} />
               </td>
             </tr>
             <tr>
               <th>
-                <label htmlFor='loop'>Loop</label>
+                <label htmlFor="loop">Loop</label>
               </th>
               <td>
-                <input id='loop' type='checkbox' checked={loop} onChange={this.toggleLoop} />
+                <input id="loop" type="checkbox" checked={loop} onChange={this.toggleLoop} />
               </td>
             </tr>
             <tr>
@@ -184,6 +187,6 @@ export default class Player extends Component {
           </tbody></table>
         </section>
       </div>
-    )
+    );
   }
 }

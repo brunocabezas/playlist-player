@@ -47,7 +47,7 @@ const myPromise = val =>{
     })
     .map(res => {
       return Object.assign({spotifyId,spotifyTrackName},res.response);
-    })
+    });
 };
 
 // epic
@@ -96,7 +96,7 @@ export const savePlaylistEpic = (action$, store) =>
           type: SAVE_PLAYLIST_ERROR,
           payload: error.xhr.response,
           error: true
-        }))
+        }));
       }
 
     );
@@ -119,7 +119,7 @@ export const updatePlaylist = (action$, store) =>
             type: SPOTIFY_LOGIN_ERROR,
             payload: error.xhr.response,
             error: true
-          }))
+          }));
       }
 
     );

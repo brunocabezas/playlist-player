@@ -1,4 +1,3 @@
-import { initialState } from './initialState';
 import {combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
 import playlist from './playlistReducer';

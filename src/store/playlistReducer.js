@@ -9,7 +9,7 @@ export function data( state = initialState.playlist.data, action) {
     default:
       return state;
   }
-};
+}
 
 
 export function songs( state = initialState.playlist.songs, action) {
@@ -19,9 +19,9 @@ export function songs( state = initialState.playlist.songs, action) {
     default:
       return state;
   }
-};
+}
 
 export default combineReducers({
   data,
   songs
-})
+});

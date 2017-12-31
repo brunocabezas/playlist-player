@@ -971,4 +971,4 @@ export const playlist = {
   },
   "type" : "playlist",
     "uri" : "spotify:user:subhaze-cl:playlist:2DFxu5p9MQSnq3r2lWnxwi"
-}
+};

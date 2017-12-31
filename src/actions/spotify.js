@@ -1,7 +1,7 @@
 import {SET_TOKEN,GET_PLAYLIST_ERROR,GET_PLAYLIST,SPOTIFY_LOGIN_ERROR,GET_PLAYLIST_SUCCESS,SPOTIFY_LOGIN} from "./actionTypes";
 import queryString from 'querystring';
 import { Base64 } from 'js-base64';
-import {Observable} from 'rxjs'
+import {Observable} from 'rxjs';
 import {ajax} from 'rxjs/observable/dom/ajax';
 
 export const setToken = token =>
@@ -65,7 +65,7 @@ export const loadPlaylistEpic = (action$, store) =>
           type: GET_PLAYLIST_ERROR,
           payload: error.xhr.response,
           error: true
-        }))
+        }));
     }
 
     );

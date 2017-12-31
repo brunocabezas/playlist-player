@@ -17,7 +17,11 @@ require('preact/devtools');
 class App extends Component{
   static propTypes = {
     /* playlist data from state (spotify) */
-    playlistData : PropTypes.object,
+    playlistData : PropTypes.shape({
+      track : PropTypes.shape({
+        items : PropTypes.array.isRequired
+      }).isRequired
+    }),
     songs : PropTypes.arrayOf(PropTypes.shape({
       title : PropTypes.string.isRequired,
       published : PropTypes.string.isRequired,
@@ -36,7 +40,7 @@ class App extends Component{
   };
 
   componentWillMount() {
-    console.log('componentWillUnmount',this.props);
+    // console.log('componentWillUnmount',this.props);
     this.props.login();
   };
 
@@ -50,17 +54,18 @@ class App extends Component{
 
     const params = getParams(text);
     if(params){
-      this.props.loadPlaylist(params)
+      this.props.loadPlaylist(params);
     }
   };
 
   _handleTrackClick = (track) => {
-    this.setState({ currentTrack: track })
+    this.setState({ currentTrack: track });
   };
 
   _navigatePlaylist = (direction) => {
-    const newIndex = mod(this.props.playlisData.track.items,playlist.indexOf(this.state.currentTrack) + direction, this.props.playlisData.track.items,playlist.length);
-    this.setState({ currentTrack: playlist[newIndex] })
+    const {items} = this.props.playlistData.track,
+      newIndex = mod(items,playlist.indexOf(this.state.currentTrack) + direction, items,playlist.length);
+    this.setState({ currentTrack: playlist[newIndex] });
   };
 
   handlePlay = e =>{
@@ -70,7 +75,7 @@ class App extends Component{
 
   render({playlistData,songs},{text,currentTrack,repeatTrack,autoPlay}){
 
-    console.log(currentTrack)
+    // console.log(currentTrack)
     return (
       <div>
         <h1>ENTER A SPOTIFY PLAYLIST LINK</h1>
