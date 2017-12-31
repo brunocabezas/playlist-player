@@ -1,21 +1,23 @@
-.app {
+.player {
   margin: auto;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
   text-align: center;
+
+  .section {
+    display: inline-block;
+    max-width: 480px;
+    margin: 20px;
+    text-align: left;
+    vertical-align: top;
+
+    .player__wrapper {
+      display: none;
+    }
+  }
 }
 
-.section {
-  display: inline-block;
-  max-width: 480px;
-  margin: 20px;
-  text-align: left;
-  vertical-align: top;
-}
 
-.player-wrapper {
-  display: none;
-}
 
 .react-player {
   margin-bottom: 10px;

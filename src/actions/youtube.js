@@ -1,6 +1,12 @@
 import {
-  SAVE_PLAYLIST_ERROR, SAVE_PLAYLIST_SUCCESS, SAVE_PLAYLIST, GET_PLAYLIST_SONGS, SPOTIFY_LOGIN,
-  SPOTIFY_LOGIN_ERROR, GET_PLAYLIST_SONGS_SUCCESS
+  SAVE_PLAYLIST_ERROR,
+  SAVE_PLAYLIST_SUCCESS,
+  SAVE_PLAYLIST,
+  GET_PLAYLIST_SONGS,
+  SPOTIFY_LOGIN,
+  SPOTIFY_LOGIN_ERROR,
+  GET_PLAYLIST_SONGS_SUCCESS,
+  GET_PLAYLIST_SONGS_ERROR
 } from "./actionTypes";
 import queryString from 'querystring';
 import {Observable} from 'rxjs';
@@ -45,20 +51,27 @@ const myPromise = val =>{
 export const loadPlaylistSongsEpic = (action$, store) =>
   action$.ofType(GET_PLAYLIST_SONGS)
     .mergeMap(action =>
-
       Observable.concat(
         Observable.of(updateLoading(true)),
+
         Observable.of(action.songs)
-        .switchMap(songs => Observable.forkJoin(...songs.map(myPromise)))
-        .map(res => {
-          const videoIds = res
-            .map(r=>r.items.find(item=>item.id.videoId))
-            .map(r=>r.id.videoId);
-          return loadPlaylistSongsSuccess(res);
-           // savePlaylist(videoIds);
-        }),
+          .switchMap(songs => Observable.forkJoin(...songs.map(myPromise)))
+          .map(res => {
+            const videoIds = res
+              .map(r=>r.items.find(item=>item.id.videoId))
+              .map(r=>r.id.videoId);
+            return loadPlaylistSongsSuccess(res);
+             // savePlaylist(videoIds);
+          })
+          .catch(error => Observable.of({
+            type: GET_PLAYLIST_SONGS_ERROR,
+            payload: error.xhr.response,
+            error: true
+          })),
+
         Observable.of(updateLoading(false))
-      ));
+      )
+    );
 
 
 
@@ -109,7 +122,7 @@ export const updatePlaylist = (action$, store) =>
           });
 
         return  ajax.put(`https://www.googleapis.com/youtube/v3/playlistsItms`, body)
-          .map(res => console.log (res.response))
+          // .map(res => console.log (res.response))
           .catch(error => Observable.of({
             type: SPOTIFY_LOGIN_ERROR,
             payload: error.xhr.response,

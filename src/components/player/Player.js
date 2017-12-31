@@ -1,7 +1,7 @@
 import {h, Component} from 'preact';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
-import './_player.css';
+import './_player.styl';
 import './Range.css';
 
 export default class Player extends Component {
@@ -111,10 +111,22 @@ export default class Player extends Component {
     const { url, playing, volume, muted, loop, played, loaded, duration, playbackRate } = this.state;
 
     return (
-      <div className="app">
+      <div className="player">
+        <div className="media-controls media-controls--full">
+          <div className="media-row">
+            current time | nombre cancion | duraciton total
+          </div>
+          <div className="media-control-group media-control-group--seek">
+            progreess bar
+          </div>
+          <div className="media-row">
+            mutear / prev play next / repeat,fullscreen, volumen?
+          </div>
+        </div>
+
         <section className="section">
           <h1>ReactPlayer Demo</h1>
-          <div className="player-wrapper">
+          <div className="player__wrapper">
             <ReactPlayer
               ref={this.ref}
               className="react-player"

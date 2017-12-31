@@ -1,6 +1,6 @@
 {
   "presets": [
-    "preact"
+    "preact","es2015"
   ],
   "plugins" : [
     "transform-class-properties",
