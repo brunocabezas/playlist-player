@@ -1,21 +1,42 @@
-.player {
+.player
   margin: auto;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
   text-align: center;
 
-  .section {
+  .section
     display: inline-block;
     max-width: 480px;
     margin: 20px;
     text-align: left;
     vertical-align: top;
 
-    .player__wrapper {
+    .player__wrapper
       display: none;
-    }
-  }
-}
+
+  .media-control--play-pause
+    cursor pointer
+    &:hover
+      fill: "#373D3F"
+
+  .media-control--next-track,
+  .media-control--prev-track
+    cursor pointer
+    &:hover
+      fill #d5cdc5
+
+  .media-row
+    display: flex;
+    .center
+    .right
+    .left
+      flex 1
+
+  .media-control-group--seek .media-control--progress
+    color red
+    background-color red
+    input[type="range" i]
+      color red
 
 
 

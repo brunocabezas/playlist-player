@@ -1,3 +1,5 @@
+const jeet = require('jeet');
+
 module.exports = {
   port: 3000,
   extendWebpack(config) {
@@ -8,6 +10,7 @@ module.exports = {
       .set('create-react-class', 'preact-compat/lib/create-react-class');
 
     config.devServer.node = {fs:'empty'};
+
   },
   devServer : {
     headers: {

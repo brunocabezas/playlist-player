@@ -2,8 +2,11 @@ import {h, Component} from 'preact';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import secondsToTime from '../../helpers/secondsToTimeFormat';
-import MuteButton from './MuteButton';
-import PlayButton from './PlayButton';
+import MuteButton from './controls/MuteButton';
+import PlayButton from './controls/PlayButton';
+import PrevButton from './controls/PrevButton';
+import NextButton from './controls/NextButton';
+import ProgressBar from './controls/ProgressBar';
 import './_player.styl';
 import './Range.css';
 
@@ -107,7 +110,7 @@ export default class Player extends Component {
     this.player = player;
   };
 
-  onError = e  =>
+  onError = e =>
     // eslint-disable-next-line
     console.log("onError", e);
 
@@ -116,23 +119,36 @@ export default class Player extends Component {
     const { url, playing, volume, muted, loop, played, loaded, duration, playbackRate } = this.state,
       disableControls = !!url;
 
+    console.log(played)
     return (
       <div className="player">
         <div className="media-controls media-controls--full">
           <div className="media-row">
            <span className={"media-control"}>{secondsToTime(this.state.playedSeconds)} </span> {this.props.current.spotifyTrackName} <span className={"media-control"}>{secondsToTime(duration)}</span>
           </div>
-          <div className="media-control-group media-control-group--seek">
-            progreess bar
-          </div>
+          <ProgressBar
+            onMouseDown={this.onSeekMouseDown}
+            onChange={this.onSeekChange}
+            onMouseUp={this.onSeekMouseUp}
+            value={played}
+          />
           <div className="media-row">
-            <MuteButton
-              isMuted={muted}
-              onClick={this.toggleMuted}
-            /> / prev <PlayButton
-            isPlaying={playing}
-            onClick={this.playPause}
-          /> next / repeat,fullscreen, volumen?
+            <div className="left">
+              <MuteButton
+                isMuted={muted}
+                onClick={this.toggleMuted}
+              />
+            </div>
+
+            <div className="center">
+              <PrevButton />
+              <PlayButton isPlaying={playing}
+                onClick={this.playPause}
+              />
+              <NextButton />
+            </div>
+
+            <div className="right">repeat,fullscreen, volumen?</div>
           </div>
         </div>
 
@@ -173,9 +189,6 @@ export default class Player extends Component {
                 <input
                   type="range" min={0} max={1} step="any"
                   value={played}
-                  onMouseDown={this.onSeekMouseDown}
-                  onChange={this.onSeekChange}
-                  onMouseUp={this.onSeekMouseUp}
                 />
               </td>
             </tr>
