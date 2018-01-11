@@ -1,24 +1,32 @@
 import {createSelector} from 'reselect';
 import getCorrectVideo from '../helpers/getCorrectVideo';
 
-const getSongs = state =>
+const getYoutubeTracks = state =>
   state.playlist.songs;
 
 export default createSelector(
-  getSongs,
-  songs=>songs.map(song=>{
-    const {spotifyId,spotifyTrackName,items} = song,
-      video = getCorrectVideo(spotifyTrackName,items);
+  getYoutubeTracks,
+  songs=>{
 
-    return Object.assign(
-      { youtubeId : video.id.videoId,
-        src : "http://www.youtube.com/embed/"+video.id.videoId,
-        label : video.snippet.title,
-        published : video.snippet.publishedAt,
-        etag : video.etag
-      },
-      {spotifyId}
-    );
-  })
+    return songs.map(song=>{
+        const {spotifyId,spotifyTrackName,items} = song,
+          video = getCorrectVideo(spotifyTrackName,items);
+
+        if (video)
+          return Object.assign(
+            { youtubeId : video.id && video.id.videoId,
+              src :video.id ? "http://www.youtube.com/embed/"+video.id.videoId : null,
+              label : video.snippet && video.snippet.title,
+              published : video.snippet && video.snippet.publishedAt,
+              etag : video.etag
+            },
+            {spotifyId,spotifyTrackName}
+          );
+        else
+          return null;
+
+      })
+      .filter(item=>item);
+  }
 );
 

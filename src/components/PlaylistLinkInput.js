@@ -24,4 +24,4 @@ export default class PlaylistLinkInput extends Component {
       </div >
     );
   }
-};
+}

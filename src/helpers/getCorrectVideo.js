@@ -24,6 +24,4 @@ export default (videoName,options) =>{
         return opt;
       }
     );
-
-  return result;
 };

@@ -1,12 +1,16 @@
 import {h, Component} from 'preact';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
+import secondsToTime from '../../helpers/secondsToTimeFormat';
+import MuteButton from './MuteButton';
+import PlayButton from './PlayButton';
 import './_player.styl';
 import './Range.css';
 
 export default class Player extends Component {
   static propTypes = {
-    url : PropTypes.string
+    url : PropTypes.string,
+    current : PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -15,12 +19,13 @@ export default class Player extends Component {
 
   state = {
     url:  this.props.url || null,
-    playing: true,
+    playing: false,
     volume: 0.8,
     muted: false,
     played: 0,
     loaded: 0,
     duration: 0,
+    playedSeconds : 0,
     playbackRate: 1.0,
     loop: false
   };
@@ -34,7 +39,7 @@ export default class Player extends Component {
     this.setState({
       url,
       played: 0,
-      loaded: 0
+      loaded: 0,
     });
   };
 
@@ -43,7 +48,7 @@ export default class Player extends Component {
   };
 
   stop = () => {
-    this.setState({ url: null, playing: false });
+    this.setState({ url: null, playing: false,playedSeconds:0});
   };
 
   toggleLoop = () => {
@@ -108,19 +113,26 @@ export default class Player extends Component {
 
 
   render () {
-    const { url, playing, volume, muted, loop, played, loaded, duration, playbackRate } = this.state;
+    const { url, playing, volume, muted, loop, played, loaded, duration, playbackRate } = this.state,
+      disableControls = !!url;
 
     return (
       <div className="player">
         <div className="media-controls media-controls--full">
           <div className="media-row">
-            current time | nombre cancion | duraciton total
+           <span className={"media-control"}>{secondsToTime(this.state.playedSeconds)} </span> {this.props.current.spotifyTrackName} <span className={"media-control"}>{secondsToTime(duration)}</span>
           </div>
           <div className="media-control-group media-control-group--seek">
             progreess bar
           </div>
           <div className="media-row">
-            mutear / prev play next / repeat,fullscreen, volumen?
+            <MuteButton
+              isMuted={muted}
+              onClick={this.toggleMuted}
+            /> / prev <PlayButton
+            isPlaying={playing}
+            onClick={this.playPause}
+          /> next / repeat,fullscreen, volumen?
           </div>
         </div>
 
@@ -133,6 +145,7 @@ export default class Player extends Component {
               width="100%"
               height="100%"
               url={url}
+
               playing={playing}
               loop={loop}
               playbackRate={playbackRate}

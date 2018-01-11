@@ -9,9 +9,9 @@ const store = configureStore();
 
 render(
   <div id="outer">
-  <Provider store={store}>
-    <App />
-  </Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </div>,
-  document.getElementById('app')
+  document.getElementById('app') // eslint-disable-line
 );

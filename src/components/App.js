@@ -14,6 +14,9 @@ import playlist from "../store/playlistReducer";
 
 require('preact/devtools');
 
+const mod = (num, max) =>
+  ((num % max) + max) % max;
+
 class App extends Component{
   static propTypes = {
     /* playlist data from state (spotify) */
@@ -37,10 +40,10 @@ class App extends Component{
 
   state = {
     text : "",
-    currentTrack: {},
+    currentTrack: { spotifyTrackName: "Please click on a track below" }
   };
 
-  componentWillMount() {
+  componentWillMount = () => {
     // console.log('componentWillUnmount',this.props);
     this.props.login();
   };
@@ -76,7 +79,7 @@ class App extends Component{
 
   render({playlistData,songs,loading},{text,currentTrack,repeatTrack,autoPlay}){
 
-    // console.log(currentTrack)
+    // console.log(songs)
     return (
       <div>
         <h1>ENTER A SPOTIFY PLAYLIST LINK {loading && "loading"}</h1>
@@ -87,6 +90,7 @@ class App extends Component{
         />
         {playlistData && <h5>playlist: {playlistData.name}</h5>}
         <Player
+          current = {currentTrack}
           url = {currentTrack.src}
         />
         <br/>
@@ -99,7 +103,7 @@ class App extends Component{
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = state => ({
   playlistData : state.playlist.data,

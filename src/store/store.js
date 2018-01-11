@@ -9,7 +9,8 @@ const epicMiddleware = createEpicMiddleware(rootEpic);
   applyMiddleware(epicMiddleware)
 );*/
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // eslint-disable-line
 
 export default function configureStore() {
   const store = createStore(
