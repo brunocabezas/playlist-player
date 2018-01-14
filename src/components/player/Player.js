@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import secondsToTime from '../../helpers/secondsToTimeFormat';
-import MuteButton from './controls/MuteButton';
+import VolumeControl from './controls/VolumeControl';
 import PlayButton from './controls/PlayButton';
 import PrevButton from './controls/PrevButton';
 import NextButton from './controls/NextButton';
@@ -21,6 +21,7 @@ export default class Player extends Component {
   };
 
   state = {
+    /* url holds the current song url */
     url:  this.props.url || null,
     playing: false,
     volume: 0.8,
@@ -119,13 +120,20 @@ export default class Player extends Component {
     const { url, playing, volume, muted, loop, played, loaded, duration, playbackRate } = this.state,
       disableControls = !!url;
 
-    console.log(played)
     return (
       <div className="player">
         <div className="media-controls media-controls--full">
+
           <div className="media-row">
-           <span className={"media-control"}>{secondsToTime(this.state.playedSeconds)} </span> {this.props.current.spotifyTrackName} <span className={"media-control"}>{secondsToTime(duration)}</span>
+            <span className={"media-control"}>
+             {secondsToTime(this.state.playedSeconds)}
+            </span>
+             {this.props.current.spotifyTrackName}
+            <span className={"media-control"}>
+             {secondsToTime(duration)}
+            </span>
           </div>
+
           <ProgressBar
             onMouseDown={this.onSeekMouseDown}
             onChange={this.onSeekChange}
@@ -134,7 +142,9 @@ export default class Player extends Component {
           />
           <div className="media-row">
             <div className="left">
-              <MuteButton
+              <VolumeControl
+                volume={volume}
+                onVolumeChange={this.setVolume}
                 isMuted={muted}
                 onClick={this.toggleMuted}
               />
@@ -142,18 +152,16 @@ export default class Player extends Component {
 
             <div className="center">
               <PrevButton />
-              <PlayButton isPlaying={playing}
+              <PlayButton
+                isPlaying={playing}
                 onClick={this.playPause}
               />
               <NextButton />
             </div>
-
-            <div className="right">repeat,fullscreen, volumen?</div>
           </div>
         </div>
 
         <section className="section">
-          <h1>ReactPlayer Demo</h1>
           <div className="player__wrapper">
             <ReactPlayer
               ref={this.ref}
@@ -175,54 +183,6 @@ export default class Player extends Component {
               onDuration={this.onDuration}
             />
           </div>
-          <table><tbody>
-            <tr>
-              <th>Controls</th>
-              <td>
-                <button onClick={this.stop}>Stop</button>
-                <button onClick={this.playPause}>{playing ? "Pause" : "Play"}</button>
-              </td>
-            </tr>
-            <tr>
-              <th>Seek</th>
-              <td>
-                <input
-                  type="range" min={0} max={1} step="any"
-                  value={played}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Volume</th>
-              <td>
-                <input type="range" min={0} max={1} step="any" value={volume} onChange={this.setVolume} />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <label htmlFor="muted">Muted</label>
-              </th>
-              <td>
-                <input id="muted" type="checkbox" checked={muted} onChange={this.toggleMuted} />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                <label htmlFor="loop">Loop</label>
-              </th>
-              <td>
-                <input id="loop" type="checkbox" checked={loop} onChange={this.toggleLoop} />
-              </td>
-            </tr>
-            <tr>
-              <th>Played</th>
-              <td><progress max={1} value={played} /></td>
-            </tr>
-            <tr>
-              <th>Loaded</th>
-              <td><progress max={1} value={loaded} /></td>
-            </tr>
-          </tbody></table>
         </section>
       </div>
     );

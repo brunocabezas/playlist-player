@@ -4,6 +4,7 @@ import getParams from '../helpers/getUserAndPlaylistIdFromUrl';
 import PropTypes from 'prop-types';
 import songSelector from '../selectors/song';
 import Player from './player/Player';
+import './_app.styl';
 
 import {connect} from 'preact-redux';
 import {login,loadPlaylist} from '../actions/spotify';
@@ -40,12 +41,16 @@ class App extends Component{
 
   state = {
     text : "",
-    currentTrack: { spotifyTrackName: "Please click on a track below" }
+    currentTrack: { spotifyTrackName: "Click on a playlist track" }
   };
 
   componentWillMount = () => {
     // console.log('componentWillUnmount',this.props);
     this.props.login();
+  };
+
+  componentDidMount = ()=>{
+    this.inputRef.focus();
   };
 
   handleInputchange = e => {
@@ -72,34 +77,64 @@ class App extends Component{
     this.setState({ currentTrack: playlist[newIndex] });
   };
 
+  _nextTrack = e => {
+    const newIndex = this.props.songs.indexOf(this.state.currentTrack)+ 1;
+    this.setState({ currentTrack: this.props.songs[newIndex] });
+  };
+
   handlePlay = e =>{
     const {loadPlaylistSongs,playlistData } = this.props;
     loadPlaylistSongs(playlistData.tracks.items);
+  };
+
+  setPlaylist = e =>{
+    this.setState({text : e.currentTarget.innerHTML});
+  };
+
+  setInputRef = input =>{
+    this.inputRef = input;
+  };
+
+  clearInput = () =>{
+    this.setState({text:""});
   };
 
   render({playlistData,songs,loading},{text,currentTrack,repeatTrack,autoPlay}){
 
     // console.log(songs)
     return (
-      <div>
-        <h1>ENTER A SPOTIFY PLAYLIST LINK {loading && "loading"}</h1>
-        <PlaylistLinkInput
-          value = {text}
-          name = "text"
-          onChange ={this.handleInputchange}
-        />
-        {playlistData && <h5>playlist: {playlistData.name}</h5>}
-        <Player
-          current = {currentTrack}
-          url = {currentTrack.src}
-        />
-        <br/>
-        <button onClick={this.handlePlay}>get</button>
-        <Playlist tracks = {songs}
-          currentTrack={currentTrack}
-          onTrackClick={this._handleTrackClick}
-        />
-        <hr/>
+      <div className={"app"}>
+        <div className="app__input">
+          <h1> ENTER A SPOTIFY PLAYLIST
+            <button onClick={this.handlePlay}>get</button></h1>
+          <PlaylistLinkInput
+            clearInput = {this.clearInput}
+            setRef = {this.setInputRef}
+            value = {text}
+            name = "text"
+            onChange = {this.handleInputchange}
+          />
+        </div>
+        <div className={"app__player"}>
+          <div className="left">
+            <Player
+              current = {currentTrack}
+              url = {currentTrack.src}
+              onNext = {this._nextTrack}
+              onPrevious = {this._nextTrack}
+            />
+          </div>
+          <div className="right">
+            <Playlist
+              setPlaylist = {this.setPlaylist}
+              loading = {loading}
+              playlist={playlistData}
+              tracks = {songs}
+              currentTrack={currentTrack}
+              onTrackClick={this._handleTrackClick}
+            />
+          </div>
+        </div>
       </div>
     );
   }

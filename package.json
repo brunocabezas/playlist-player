@@ -34,6 +34,8 @@
     "querystring": "^0.2.0",
     "react-motion-ui-pack": "^0.10.3",
     "react-player": "^0.25.3",
+    "react-spinners": "^0.2.5",
+    "react-tippy": "^1.2.2",
     "redux-observable": "^0.17.0",
     "reselect": "^3.0.1",
     "rxjs": "^5.5.6",

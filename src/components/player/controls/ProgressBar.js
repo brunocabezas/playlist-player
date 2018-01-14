@@ -1,27 +1,34 @@
-import {h, Component } from 'preact';
+import {h } from 'preact';
 import PropTypes from 'prop-types';
 
-export default class ProgressBar extends Component {
-  static propTypes = {
-    disabled : PropTypes.bool,
-    onClick : PropTypes.func.isRequired
-  };
+const propTypes = {
+  value : PropTypes.number.isRequired,
+  onChange : PropTypes.func.isRequired,
+  onMouseDown : PropTypes.func.isRequired,
+  onMouseUp : PropTypes.func.isRequired
+};
 
-  static defaultProps = {
-    isPlaying : false,
-    disabled : false
-  };
+const defaultProps = {
+  disabled : 0
+};
 
-  render() {
-    const { value, isPlaying } = this.props;
+const ProgressBar = ({ value, onChange ,onMouseDown,onMouseUp} ) =>
+  <div className="media-control-group media-control-group--seek">
+    <progress className="media-control media-control--progress" value={value} />
+    <input
+      type="range"
+      step="any"
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      min={0}
+      onChange={onChange}
+      max={1}
+      value={value}
+      className="media-control media-control--seekbar"
+      style={{backgroundSize: "0% 100%"}}
+    />
+  </div>;
 
-    console.log(value);
-    return (
-      <div className="media-control-group media-control-group--seek">
-        <progress className="media-control media-control--progress" value={value} />
-        <input type="range" step="any" min={0} max={1} step="any" value={value} className="media-control media-control--seekbar" style="background-size: 0% 100%;" />
-      </div>
-    );
-  }
-}
-
+ProgressBar.defaultProps = defaultProps;
+ProgressBar.propTypes = propTypes;
+export default ProgressBar;
