@@ -21,6 +21,7 @@ export const login = () =>
 const body = queryString.stringify({ grant_type: 'client_credentials' }),
   base64client = Base64.encode(process.env.CLIENT+":"+process.env.CLIENT_ID);
 
+// console.log(process.env,base64client,process.env.CLIENT)
 // epic
 export const loginEpic = action$ =>
   action$.ofType(SPOTIFY_LOGIN)

@@ -4,6 +4,7 @@ import getParams from '../helpers/getUserAndPlaylistIdFromUrl';
 import PropTypes from 'prop-types';
 import songSelector from '../selectors/song';
 import Player from './player/Player';
+import Helmet from 'react-helmet';
 import './_app.styl';
 
 import {connect} from 'preact-redux';
@@ -88,7 +89,7 @@ class App extends Component{
   };
 
   setPlaylist = e =>{
-    this.setState({text : e.currentTarget.innerHTML});
+    this.handleInputchange({target:{value : e.currentTarget.innerHTML}});
   };
 
   setInputRef = input =>{
@@ -101,9 +102,11 @@ class App extends Component{
 
   render({playlistData,songs,loading},{text,currentTrack,repeatTrack,autoPlay}){
 
-    // console.log(songs)
     return (
       <div className={"app"}>
+        <Helmet>
+          <link rel="shortcut icon" href="../../static/favicon.png" />
+        </Helmet>
         <div className="app__input">
           <h1> ENTER A SPOTIFY PLAYLIST
             <button onClick={this.handlePlay}>get</button></h1>

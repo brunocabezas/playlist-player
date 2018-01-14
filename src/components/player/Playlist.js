@@ -46,18 +46,20 @@ export default class Playlist extends Component {
         </p>
       </span>
     ),
-    tooltip =
+    tooltip =(
       <Tooltip
         position="top"
         interactive
         arrow
+        delay={0}
         hideOnClick = {false}
         style={{textDecoration:"underline",color:"#36D7B7"}}
         html={tooltipContent}
       >
         spotify playlist uri
 
-      </Tooltip>;
+      </Tooltip>
+    );
 
     return (
       <aside className="playlist">

@@ -12,7 +12,7 @@ const defaultProps = {
   disabled : 0
 };
 
-const ProgressBar = ({ value, onChange ,onMouseDown,onMouseUp} ) =>
+const ProgressBar = ({ value, onChange ,onMouseDown,onMouseUp} ) => (
   <div className="media-control-group media-control-group--seek">
     <progress className="media-control media-control--progress" value={value} />
     <input
@@ -27,7 +27,8 @@ const ProgressBar = ({ value, onChange ,onMouseDown,onMouseUp} ) =>
       className="media-control media-control--seekbar"
       style={{backgroundSize: "0% 100%"}}
     />
-  </div>;
+  </div>
+);
 
 ProgressBar.defaultProps = defaultProps;
 ProgressBar.propTypes = propTypes;

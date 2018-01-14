@@ -1,6 +1,6 @@
 import {h,Component} from 'preact';
 import PropTypes from 'prop-types';
-import Close from './Close.svg';
+import Close from './CloseIcon';
 import './_playlistInput.styl';
 
 export default class PlaylistLinkInput extends Component {
