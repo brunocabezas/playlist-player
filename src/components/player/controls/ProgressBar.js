@@ -7,37 +7,40 @@ const propTypes = {
   onChange : PropTypes.func.isRequired,
   onMouseDown : PropTypes.func.isRequired,
   onMouseUp : PropTypes.func.isRequired,
-  disabled : PropTypes.bool
+  disabled : PropTypes.bool,
+  loaded : PropTypes.number.isRequired
 };
 
 const defaultProps = {
   disabled : false
 };
 
-const ProgressBar = ({ disabled, value, onChange ,onMouseDown,onMouseUp} ) => (
+const ProgressBar = ({ loaded,disabled, value, onChange ,onMouseDown,onMouseUp} ) => (
   <div className="media-control-group media-control-group--seek">
-    <progress className="media-control media-control--progress" value={value} />
-    <Slider min={0} max={1} step={0.000000001}
-            className="media-control media-control--seekbar"
-            style={{backgroundSize: "0% 100%"}}
+    {/*<progress className="media-control media-control--progress" value={value} />*/}
+    <Slider
+      max={1}
+      step={0.00001}
 
-            disabled={disabled}
-            onMouseDown={onMouseDown}
-            onMouseUp={onMouseUp}
-            defaultValue={0} value={value} onChange={onChange} />
+      trackStyle={{display:"none"}}
+      className="media-control media-control--seekbar"
+      disabled={disabled}
+      defaultValue={0}
+      value={value}
+    />
 
-    {/*<input
-      type="range"
-      step="any"
+    <Slider
+      max={1}
+      step={0.00001}
+      handleStyle={{display:"none"}}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
-      min={0}
       onChange={onChange}
-      max={1}
-      value={value}
-      className="media-control media-control--seekbar"
-      style={{backgroundSize: "0% 100%"}}
-    />*/}
+      trackStyle={{backgroundColor:"red"}}
+      className="media-control media-control-loaded--seekbar"
+      defaultValue={0}
+      value={loaded}
+    />
   </div>
 );
 

@@ -31,7 +31,7 @@ const VolumeControl = ({onClick, isMuted, volume,onVolumeChange}) => (
         <polygon key="mute" fill="#CDD7DB" points="24.839,15.955 23.778,14.895 21.733,16.94 19.688,14.895 18.628,15.955 20.673,18 18.628,20.045 19.688,21.106 21.733,19.061 23.778,21.106 24.839,20.045 22.794,18 "/>
       }
     </svg>
-    <Slider min={0} max={1} step={0.01} disabled={isMuted} defaultValue={0} value={volume} onChange={onVolumeChange} />
+    <Slider min={0} max={1} step={0.01} disabled={isMuted} defaultValue={0} value={isMuted ? 0 : volume} onChange={onVolumeChange} />
     {/*<input type="range"  min={0} max={1} step="any" value={volume} onChange={onVolumeChange} />*/}
   </div>
 );

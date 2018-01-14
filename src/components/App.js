@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import urlRegex from 'url-regex';
 import {connect} from 'preact-redux';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
 import songSelector from '../selectors/song';
 import {login,loadPlaylist} from '../actions/spotify';
 import {loadPlaylistSongs} from '../actions/youtube';
@@ -14,7 +13,7 @@ import PlaylistLinkInput from './PlaylistLinkInput';
 import playlist from "../store/playlistReducer";
 import './_app.styl';
 
-require('preact/devtools');
+import 'preact/devtools';
 
 const mod = (num, max) =>
   ((num % max) + max) % max;
@@ -42,6 +41,7 @@ class App extends Component{
 
   state = {
     text : "",
+    playing : false,
     currentTrack: { spotifyTrackName: "Click on a playlist track" }
   };
 
@@ -69,7 +69,11 @@ class App extends Component{
   };
 
   _handleTrackClick = (track) => {
-    this.setState({ currentTrack: track });
+    this.setState({
+      currentTrack: track,
+      playing:true
+    });
+
   };
 
   _navigatePlaylist = (direction) => {
@@ -80,8 +84,26 @@ class App extends Component{
 
   _nextTrack = e => {
     const newIndex = this.props.songs.indexOf(this.state.currentTrack)+ 1;
-    this.setState({ currentTrack: this.props.songs[newIndex] });
+
+    if (newIndex>this.props.songs.length) return;
+
+    this.setState({
+      playing : true,
+      currentTrack: this.props.songs[newIndex]
+    });
   };
+
+  _previousTrack = e => {
+    const newIndex = this.props.songs.indexOf(this.state.currentTrack)-1;
+
+    if (newIndex<0) return;
+
+    this.setState({
+      playing : true,
+      currentTrack: this.props.songs[newIndex]
+    });
+  };
+
 
   handlePlay = e =>{
     const {loadPlaylistSongs,playlistData } = this.props;
@@ -100,16 +122,11 @@ class App extends Component{
     this.setState({text:""});
   };
 
-  render({playlistData,songs,loading},{text,currentTrack,repeatTrack,autoPlay}){
-
+  render({playlistData,songs,loading},{text,playing,currentTrack,repeatTrack,autoPlay}){
     return (
       <div className={"app"}>
-        <Helmet>
-          <link rel="shortcut icon" href="../../static/favicon.png" />
-        </Helmet>
         <div className="app__input">
-          <h1> ENTER A SPOTIFY PLAYLIST
-            <button onClick={this.handlePlay}>get</button></h1>
+          <h1> ENTER A SPOTIFY PLAYLIST <button onClick={this.handlePlay}>get</button> </h1>
           <PlaylistLinkInput
             clearInput = {this.clearInput}
             setRef = {this.setInputRef}
@@ -121,10 +138,11 @@ class App extends Component{
         <div className={"app__player"}>
           <div className="left">
             <Player
+              playing = {playing}
               current = {currentTrack}
               url = {currentTrack.src}
               onNext = {this._nextTrack}
-              onPrevious = {this._nextTrack}
+              onPrevious = {this._previousTrack}
             />
           </div>
           <div className="right">

@@ -36,6 +36,7 @@ export default class Playlist extends Component {
   };
 
   render({ tracks, loading,currentTrack,playlist,setPlaylist }){
+    // console.log(tracks)
     const tooltipContent = (
       <span style={{textAlign:"left"}}>
         <p style={{marginBottom:10,fontSize:12}}>
@@ -72,9 +73,9 @@ export default class Playlist extends Component {
               id = {track.spotifyId}
               className={`playlist__track ${track === currentTrack ? 'playlist__track-active' : ''}`}
               onClick={this._handleTrackClick}
-                title={track.spotifyTrackName}
+              title={track.label}
             >
-              {track.label}
+              {track.spotifyTrackName}
             </li>
           ))}
           {tracks.length === 0 && !loading &&

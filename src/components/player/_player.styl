@@ -4,21 +4,13 @@
   font-weight: 300;
   text-align: center;
 
-  .section
-    display: inline-block;
-    max-width: 480px;
-    margin: 20px;
-    text-align: left;
-    vertical-align: top;
-
-    .player__wrapper
-      display: none;
+  .player__wrapper
+    display: none;
 
   .media-control--play-pause
     cursor pointer
     &:hover
       fill: "#373D3F"
-
 
   .media-control--mute-unmute{
     margin 0
@@ -39,11 +31,15 @@
     .left
       flex 1
 
-  .media-control-group--seek .media-control--progress
-    color red
-    background-color red
-    input[type="range" i]
-      color red
+  .media-control-group--seek
+    position relative
+    .media-control-loaded--seekbar
+      position absolute
+      z-index 9
+      width calc( 100% - 20px)
+      margin: 0 10px;
+    .rc-slider.rc-slider-disabled
+      background-color inherit
 
 
 .react-player {
