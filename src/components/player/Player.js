@@ -59,8 +59,8 @@ export default class Player extends Component {
     this.setState({ loop: !this.state.loop });
   };
 
-  setVolume = e => {
-    this.setState({ volume: parseFloat(e.target.value) });
+  setVolume = (val) => {
+    this.setState({ volume: parseFloat(val) });
   };
 
   toggleMuted = () => {
@@ -80,8 +80,8 @@ export default class Player extends Component {
     this.setState({ seeking: true });
   };
 
-  onSeekChange = e => {
-    this.setState({ played: parseFloat(e.target.value) });
+  onSeekChange = value => {
+    this.setState({ played: parseFloat(value) });
   };
 
   onSeekMouseUp = e => {
@@ -124,7 +124,7 @@ export default class Player extends Component {
       <div className="player">
         <div className="media-controls media-controls--full">
 
-          <div className="media-row">
+          <div className="media-row playlist-info">
             <span className={"media-control"}>
              {secondsToTime(this.state.playedSeconds)}
             </span>
@@ -135,11 +135,13 @@ export default class Player extends Component {
           </div>
 
           <ProgressBar
+            disabled
             onMouseDown={this.onSeekMouseDown}
             onChange={this.onSeekChange}
             onMouseUp={this.onSeekMouseUp}
             value={played}
           />
+
           <div className="media-row">
             <div className="left">
               <VolumeControl

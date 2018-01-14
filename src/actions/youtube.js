@@ -31,7 +31,6 @@ export const savePlaylistSuccess = playlistId =>
 const parseQueryParams = ({name,artist})=>
     artist+"|"+name;
 
-
 const myPromise = val =>{
   const values = parseQueryParams(getArtistAndNameFromTrack(val)),
     spotifyId = val.track.id,

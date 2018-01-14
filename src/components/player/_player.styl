@@ -19,6 +19,10 @@
     &:hover
       fill: "#373D3F"
 
+
+  .media-control--mute-unmute{
+    margin 0
+  }
   .media-control--next-track,
   .media-control--mute-unmute,
   .media-control--prev-track
@@ -26,8 +30,10 @@
     &:hover
       fill #d5cdc5
 
-  .media-row
+  .media-row:not(.playlist-info)
     display: flex;
+    align-items: center;
+    justify-content: center;
     .center
     .right
     .left

@@ -3,12 +3,11 @@
   align-items: center;
   justify-content: center;
 
-
+  .rc-slider,
   input[type="range"]
     flex 3
-    padding 0
-    &:disabled
-      color red
+    &.rc-slider-disabled
+      background-color inherit
 
   svg
     flex 1

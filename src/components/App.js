@@ -1,18 +1,18 @@
 import { h, Component } from 'preact';
-import Playlist from './player/Playlist';
-import getParams from '../helpers/getUserAndPlaylistIdFromUrl';
-import PropTypes from 'prop-types';
-import songSelector from '../selectors/song';
-import Player from './player/Player';
-import Helmet from 'react-helmet';
-import './_app.styl';
-
+import urlRegex from 'url-regex';
 import {connect} from 'preact-redux';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import songSelector from '../selectors/song';
 import {login,loadPlaylist} from '../actions/spotify';
 import {loadPlaylistSongs} from '../actions/youtube';
+import getParams from '../helpers/getUserAndPlaylistIdFromUrl';
+
+import Playlist from './player/Playlist';
+import Player from './player/Player';
 import PlaylistLinkInput from './PlaylistLinkInput';
-import urlRegex from 'url-regex';
 import playlist from "../store/playlistReducer";
+import './_app.styl';
 
 require('preact/devtools');
 
