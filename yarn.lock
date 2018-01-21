@@ -5109,15 +5109,6 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
-
 react-emotion@^8.0.6:
   version "8.0.12"
   resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-8.0.12.tgz#3dd94c151197e2e3399e34e3e118df141b5ebb7b"
@@ -5181,15 +5172,6 @@ react-tippy@^1.2.2:
   resolved "https://registry.yarnpkg.com/react-tippy/-/react-tippy-1.2.2.tgz#061467d34d29e7a5a9421822d125c451d6bb5153"
   dependencies:
     popper.js "^1.11.1"
-
-react@^16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
