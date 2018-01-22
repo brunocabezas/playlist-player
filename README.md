@@ -62,5 +62,10 @@ Run `poi build ` with the correspoding `auth` flags.
 - [ ] Add localStorage compat
 - [ ] Analyze bundle size
 - [ ] Add service workers 
+- [ ] Add settings section
+- [ ] Add quick search text input
+- [ ] add images of the playlist somewhere
+- [ ] Add playlist data (nº tracks, date created, more user data) to Playlist
+- [ ] add set of playlist to start with
 - [ ] Mobile Friendly 
 - [ ] PWA 

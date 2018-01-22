@@ -36,7 +36,7 @@ export default class Playlist extends Component {
   };
 
   render({ tracks, loading,currentTrack,playlist,setPlaylist }){
-    // console.log(tracks)
+    // console.log(tracks.length)
     const tooltipContent = (
       <span style={{textAlign:"left"}}>
         <p style={{marginBottom:10,fontSize:12}}>
