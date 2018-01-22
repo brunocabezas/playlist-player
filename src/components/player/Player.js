@@ -41,9 +41,9 @@ export default class Player extends Component {
     if (this.props.url!==nextProps.url)
       this.load(nextProps.url);
 
-    console.log(this.props,nextProps)
+    // console.log(this.props,nextProps)
     if(this.props.playing!==nextProps.playing){
-      console.log('nextProps.playing: ', nextProps.playing);
+      // console.log('nextProps.playing: ', nextProps.playing);
       // this.setState({playing:nextProps.playing});
     }
   };
@@ -54,9 +54,9 @@ export default class Player extends Component {
       url,
       played: 0,
       loaded: 0,
+      seeking : false,
       playing:true
     });
-    console.log(this.state)
   };
 
   playPause = () => {
@@ -84,7 +84,6 @@ export default class Player extends Component {
   };
 
   onPause = () => {
-    // console.log('onPause')
     this.setState({ playing: false });
   };
 
@@ -92,13 +91,13 @@ export default class Player extends Component {
     this.setState({ seeking: true });
   };
 
-  onSeekChange = value => {
-    this.setState({ played: parseFloat(value) });
+  onSeekChange = e => {
+    this.player.seekTo(parseFloat(e));
   };
 
   onSeekMouseUp = e => {
     this.setState({ seeking: false });
-    this.player.seekTo(parseFloat(e));
+    this.player.seekTo(parseFloat(e.target.value));
   };
 
   onProgress = state => {
@@ -110,7 +109,7 @@ export default class Player extends Component {
   };
 
   onEnded = () => {
-    console.log('onEnded')
+    // console.log('onEnded')
     this.setState({ playing: this.state.loop });
   };
 
@@ -132,7 +131,6 @@ export default class Player extends Component {
     const { url, playing, volume, muted, loop, played, loaded, duration, playbackRate } = this.state,
       disableControls = !!url;
 
-    console.log(playing,this.props.playing)
     return (
       <div className="player">
         <div className="media-controls media-controls--full">
@@ -155,7 +153,6 @@ export default class Player extends Component {
             loaded = {loaded}
             value = {played}
           />
-
           <div className="media-row">
             <div className="left">
               <VolumeControl

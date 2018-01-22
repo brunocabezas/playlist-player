@@ -20,26 +20,12 @@ const ProgressBar = ({ loaded,disabled, value, onChange ,onMouseDown,onMouseUp} 
     {/*<progress className="media-control media-control--progress" value={value} />*/}
     <Slider
       max={1}
-      step={0.00001}
-
-      trackStyle={{display:"none"}}
+      step={0.0001}
       className="media-control media-control--seekbar"
       disabled={disabled}
       defaultValue={0}
-      value={value}
-    />
-
-    <Slider
-      max={1}
-      step={0.00001}
-      handleStyle={{display:"none"}}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
       onChange={onChange}
-      trackStyle={{backgroundColor:"red"}}
-      className="media-control media-control-loaded--seekbar"
-      defaultValue={0}
-      value={loaded}
+      value={value}
     />
   </div>
 );
